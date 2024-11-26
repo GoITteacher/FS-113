@@ -7,8 +7,17 @@
  *
  */
 
-const username = "Mango";
+// const username = 'Mango';
 
-let age = 20;
+// const username1 = 'Vasya';
 
-const price = 200;
+// console.log(age);
+
+// let age = 20;
+
+// const price = 200;
+
+// typeof 20;
+
+// const userName = 10;
+// console.log(userName);
