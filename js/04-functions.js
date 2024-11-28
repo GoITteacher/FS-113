@@ -132,22 +132,24 @@
 
 // console.log(newX);
 
-// function calcBMI(weight, height) {
-//   console.log(weight, height, 0);
+function calcBMI(weight, height) {
+  console.log(weight, height, 0);
 
-//   weight = weight.replace(',', '.');
-//   height = height.replace(',', '.');
+  weight = weight.replace(',', '.');
+  height = height.replace(',', '.');
 
-//   console.log(weight, height, 0);
+  console.log(weight, height, 0);
 
-//   const w = parseFloat(weight);
-//   const h = parseFloat(height);
+  const w = parseFloat(weight);
+  const h = parseFloat(height);
 
-//   console.log(w, h, 0);
+  console.log(w, h, 0);
 
-//   const res = w / h ** 2;
-//   return res;
-// }
+  const res = w / h ** 2;
+  return res;
+}
+
+// const w = 22.6
 
 // const weight = prompt('- weight');
 // const height = prompt('- height');
