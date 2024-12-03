@@ -2,7 +2,43 @@
  * Оператор switch
  */
 
-const username = "Mango";
+// function getPrice(fruit) {
+//   switch (fruit) {
+//     case 'Mango':
+//       return 2;
+
+//     case 'Kiwi':
+//       return 1;
+
+//     case 'Apple':
+//       return 0.5;
+
+//     case 'Orange':
+//       return 0.7;
+//   }
+// }
+
+// const mangoPrice = getPrice('Mango');
+// console.log(mangoPrice);
+//!======================================================
+
+const userType = 'efsef';
+
+switch (userType) {
+  case 'Admin':
+  case 'CEO':
+    console.log('Hello');
+    break;
+
+  case 'defaultUser':
+    console.log('Welcome');
+    break;
+
+  default:
+    console.log('User is not defined');
+}
+
+//!======================================================
 
 /**
  * Виконай рефакторинг коду задачі використовуючи switch.
@@ -15,14 +51,32 @@ const username = "Mango";
 
 const daysUntilDeadline = 5;
 
-if (daysUntilDeadline === 0) {
-  console.log("Today");
-} else if (daysUntilDeadline === 1) {
-  console.log("Tomorrow");
-} else if (daysUntilDeadline === 2) {
-  console.log("Overmorrow");
-} else {
-  console.log("Date in the future");
+// if (daysUntilDeadline === 0) {
+//   console.log('Today');
+// } else if (daysUntilDeadline === 1) {
+//   console.log('Tomorrow');
+// } else if (daysUntilDeadline === 2) {
+//   console.log('Overmorrow');
+// } else {
+//   console.log('Date in the future');
+// }
+
+switch (daysUntilDeadline) {
+  case 0:
+    console.log('Today');
+    break;
+
+  case 1:
+    console.log('Tomorrow');
+    break;
+
+  case 2:
+    console.log('Overmorrow');
+    break;
+
+  default:
+    console.log('Date in the future');
+    break;
 }
 
 /*
@@ -36,7 +90,27 @@ if (daysUntilDeadline === 0) {
  * - 'Вам перезвонит менеджер'
  */
 
-const option = 1;
-let message = "";
+// function createOrder() {
+//   const option = +prompt('Enter Option (1-3)');
+//   let message = '';
 
-console.log(message);
+//   switch (option) {
+//     case 1:
+//       message = 'Вы сможете забрать товар завтра с 12:00 в нашем офисе';
+//       break;
+
+//     case 2:
+//       message = 'Курьер доставит заказ завтра с 9:00 до 18:00';
+//       break;
+
+//     case 3:
+//       message = 'Посылка будет отправлена сегодня';
+//       break;
+
+//     default:
+//       message = 'Вам зателефонує менеджер';
+//       break;
+//   }
+
+//   console.log(message);
+// }
