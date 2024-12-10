@@ -2,8 +2,16 @@
  * Напиши скрипт, який підраховує суму всіх парних чисел у масиві.
  */
 
-const numbers = [1, 5, 8, 9, 12, 4, 15, 27, 30, 18, 14];
-let total = 0;
+// const numbers = [1, 5, 8, 9, 12, 4, 15, 27, 30, 18, 14];
+// let total = 0; //20
+
+// for (const number of numbers) {
+//   if (number % 2 === 0) {
+//     total += number;
+//   }
+// }
+
+// console.log(total);
 
 /**
  * Напиши скрипт, який виводить у консоль ім'я та телефонний номер користувача.
@@ -12,8 +20,17 @@ let total = 0;
  * відповідність. Кількість імен та телефонів гарантовано однакова.
  */
 
-const names = "Jacob,William,Solomon,Artemis";
-const phones = "89001234567,89001112233,890055566377,890055566300";
+const names = 'Jacob,William,Solomon,Artemis';
+const phones = '89001234567,89001112233,890055566377,890055566300';
+
+const nameList = names.split(',');
+const phoneList = phones.split(',');
+
+for (let i = 0; i < nameList.length; i++) {
+  const name = nameList[i];
+  const phone = phoneList[i];
+  console.log(name, phone);
+}
 
 /**
  * Напиши скрипт, який виводить у консоль усі слова рядка
@@ -22,13 +39,13 @@ const phones = "89001234567,89001112233,890055566377,890055566300";
  * Скрипт повинен працювати для будь-якого рядка.
  */
 
-const string = "Welcome to the future";
+// const string = 'Welcome to the future';
 
 /**
  * Напиши скрипт пошуку найменшого числа у масиві. Код повинен працювати
  * для будь-якого масиву чисел. Використовуй цикл для розв'язання задачі.
  */
 
-const values = [2, 17, 94, 1, 23, 37];
-let min;
-console.log(min); // 1
+// const values = [2, 17, 94, 1, 23, 37];
+// let min;
+// console.log(min); // 1

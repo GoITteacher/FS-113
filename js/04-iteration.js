@@ -7,19 +7,82 @@
  * - Різниця у використанні for и for...of
  */
 
-const friends = ["Mango", "Kiwi", "Poly", "Ajax"];
-console.table(friends);
+//!======================================================
+// const arr = [
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+// ];
 
-for (let i = 0; i < friends.length; i += 1) {
-  friends[i] += `-${i}`;
-}
+// for (let i = arr.length - 1; i > 0; i--) {
+//   arr[i] = arr[i].toUpperCase();
+// }
 
-console.table(friends);
+// console.table(arr);
 
-for (let friend of friends) {
-  console.log(friend);
-  console.log(friends);
-}
+//!======================================================
+// FOR OF
+// 1 - не потрібні індекси
+// 1 - не потрібно змінювати масив
+// 1 - від початку до кінця
+
+// const arr = [
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+//   'Mango',
+//   'Kiwi',
+//   'Poly',
+//   'Ajax',
+// ];
+
+// for (const item of arr) {
+//   console.log(item);
+// }
+//!======================================================
+
+// const salaries = [500, 700, 100, 400, 800];
+
+// let sum = 0;
+
+// for (const elem of userList) {
+//   sum += salary;
+// }
+
+// for (let i = 0; i < salaries.length; i++) {
+//   sum += salaries[i];
+// }
+
+// console.log(sum);
+
+//!======================================================
+// const friends = ["Mango", "Kiwi", "Poly", "Ajax"];
+// console.table(friends);
+
+// for (let i = 0; i < friends.length; i += 1) {
+//   friends[i] += `-${i}`;
+// }
+
+// console.table(friends);
+
+// for (let friend of friends) {
+//   console.log(friend);
+//   console.log(friends);
+// }
 
 /**
  * Напиши скрипт для обчислення площі прямокутника зі сторонами,
@@ -27,7 +90,13 @@ for (let friend of friends) {
  * Значення гарантовано розділені пробілом.
  */
 
-const values = "8 11";
+// const values = '8 11';
+// const numbers = values.split(' ');
+// console.log(numbers);
+
+// const area = numbers[0] * numbers[1];
+
+// console.log(area);
 
 /**
  * Напиши скрипт для перебору масиву fruits.
@@ -36,4 +105,13 @@ const values = "8 11";
  * Нумерація елементів повинна починатися з 1.
  */
 
-const fruits = ["🍎", "🍇", "🍑", "🍌", "🍋"];
+// const fruits = ['🍎', '🍇', '🍑', '🍌', '🍋'];
+
+// for (let i = fruits.length - 1; i >= 0; i--) {
+//   const message = `${i + 1}: ${fruits[i]}`;
+//   console.log(message);
+// }
+
+function foo(arr) {
+  arr.entries;
+}
