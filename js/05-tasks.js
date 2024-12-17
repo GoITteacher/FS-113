@@ -42,3 +42,73 @@
 // }
 
 // console.log(sum);
+
+//!======================================================
+
+// const arr1 = [1, 2, 4, 6, 8, 9, 2, 1];
+// const arr2 = [5, 8, 9, 4, 6, 89, 0, 56, 45];
+
+// function foo(arr1, arr2) {
+//   const result = [1];
+//   for (const item of arr1) {
+//     if (!result.includes(item)) {
+//       result.push(item);
+//     }
+//   }
+//   for (const item of arr2) {
+//     if (!result.includes(item)) {
+//       result.push(item);
+//     }
+//   }
+
+//   return result;
+// }
+
+// console.log(foo(arr1, arr2));
+
+//!======================================================
+
+// const arr = [1, 2, 5, 6, 2, 3, 56, 1, 2, 4, 6, 8, 2, 12, 45];
+
+// function getArr(arr) {
+//   const result = [];
+
+//   for (const item of arr) {
+//     const firstIndex = arr.indexOf(item);
+//     const lastIndex = arr.lastIndexOf(item);
+
+//     if (firstIndex === lastIndex) {
+//       result.push(item);
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(getArr(arr));
+
+//!======================================================
+
+// function foo(arr) {
+//   const result = [];
+
+//   for (const item of arr) {
+//     const firstIndex = arr.indexOf(item);
+//     const secondIndex = arr.indexOf(item, firstIndex + 1);
+//     const lastIndex = arr.lastIndexOf(item);
+//     if (firstIndex != secondIndex && secondIndex === lastIndex) {
+//       result.push(item);
+//     }
+//   }
+
+//   return result;
+// }
+
+// console.log(foo([1, 4, 5, 1, 4, 6, 4, 7, 8, 7, 2]));
+
+// //
+
+// window.foo = function (name) {
+//   console.log(`Hello ${name}`);
+// };
+
+//!======================================================
