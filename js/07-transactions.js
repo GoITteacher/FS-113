@@ -90,5 +90,56 @@ const transactionHistory = [
     account: '07081761',
   },
 ];
+const str = '<div>amount, </div>';
 
 const tableEl = document.querySelector('.js-transaction-table');
+
+/* 
+{
+    id: 'f0463ec4-7104-4adb-a41c-b1c7549055f8',
+    amount: '930.87',
+    date: '2012-02-01T22:00:00.000Z',
+    business: 'Legros, Weimann and Treutel',
+    name: 'Auto Loan Account 0721',
+    type: 'invoice',
+    account: '38277848',
+  },
+*/
+function transactionTemplate(item) {
+  const isPositive = item.amount > 500;
+  const typeClasses = isPositive ? 'deposit' : 'withdraw';
+
+  return `<tr class="table-item ${typeClasses}">
+          <td>${item.id}</td>
+          <td>${item.amount}</td>
+          <td>${item.date}</td>
+          <td>${item.business}</td>
+          <td>${item.name}</td>
+          <td>${item.type}</td>
+          <td>${item.account}</td>
+        </tr>`;
+}
+
+function transactionsTemplate(arr) {
+  return arr.map(transactionTemplate).join('');
+}
+const markup = transactionsTemplate(transactionHistory);
+
+const tableElem = document.querySelector('.js-transaction-table');
+const tableBodeElem = tableElem.lastElementChild;
+tableBodeElem.insertAdjacentHTML('beforeend', markup);
+
+//!======================================================
+/* 
+<p class="text">Username: <span class=”sub-text”>Mango</span></p>
+
+const el = document.querySelector(".text")
+const nested = document.querySelector(".sub-text")
+
+console.log(el.textContent); // "Username: Mango"
+console.log(nested.textContent); // "Mango"
+
+const el = document.querySelector(".text")
+console.log(el.textContent); // "Username: Mango"
+el.textContent = "Username: Poly"; яка
+*/
