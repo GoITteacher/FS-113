@@ -44,3 +44,40 @@ const products = [
 ];
 
 const container = document.querySelector('.products');
+
+function productTemplate(item) {
+  return `<li class="item" data-id="${item.id}">
+        <img src="${item.img}" alt="${item.name}" />
+        <h2>${item.name}</h2>
+        <p>${item.description}</p>
+      </li>`;
+}
+
+function productsTemplate(items) {
+  return items.map(productTemplate).join('');
+}
+
+const markup = productsTemplate(products);
+container.innerHTML = markup;
+
+//!======================================================
+
+container.addEventListener('click', e => {
+  if (e.target === e.currentTarget) return;
+
+  const liElem = e.target.closest('li');
+  const id = +liElem.dataset.id;
+  const product = products.find(el => el.id === id);
+  showModal(product);
+});
+
+function showModal(item) {
+  const markup = `<div class="modal item">
+  <img src="${item.img}" alt="${item.name}" />
+        <h2>${item.name}</h2>
+        <p>${item.description}</p>
+        <p>${item.price}</p>
+        </div>`;
+  const modal = basicLightbox.create(markup);
+  modal.show();
+}
