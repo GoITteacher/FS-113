@@ -4,26 +4,36 @@
 
 const users = [
   {
-    name: "Kate",
+    name: 'Kate',
   },
   {
-    name: "Alex",
+    name: 'Alex',
   },
   {
-    name: "Mark",
+    name: 'Mark',
   },
 ];
+
+// const [user1, user2, user3] = users;
+
+// for (const { name } of users) {
+//   console.log(name);
+// }
+
+//!======================================================
+
+//!======================================================
 
 /**
  * Без деструктуризації
  */
-const names = [];
+// const names = [];
 
-for (const user of users) {
-  names.push(user.name);
-}
+// for (const user of users) {
+//   names.push(user.name);
+// }
 
-console.log(names);
+// console.log(names);
 
 /**
  * З деструктуризацією
