@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/GoITteacher/js-theorety-template/issues"
   },
-  "homepage": "https://github.com/GoITteacher/js-theorety-template#readme"
+  "homepage": "https://github.com/GoITteacher/js-theorety-template#readme",
+  "dependencies": {
+    "simplelightbox": "^2.14.3"
+  }
 }
