@@ -1,25 +1,50 @@
+import * as basicLightbox from 'basiclightbox';
 /*
  * Метод window.setTimeout(callback, delay, args)
  */
 
-console.log("До виклику setTimeout");
+// function sayHello() {
+//   alert('Hello world');
+// }
 
-console.log("1 - Всередині зворотного виклику для setTimeout");
+// setTimeout(sayHello, 2000);
 
-console.log("2 - Всередині зворотного виклику для setTimeout");
+//!======================================================
 
-console.log("Після виклику setTimeout");
+// function showSpam() {
+//   const instance = basicLightbox.create(`
+//     <div class="modal" style="background-color: blue;">
+//         <p>
+//             Your first lightbox with just a few lines of code.
+//             Yes, it's really that simple.
+//         </p>
+//     </div>
+// `);
 
+//   instance.show();
+// }
+
+// // setTimeout(showSpam, 5000);
+
+// setTimeout(() => {
+//   showSpam();
+// }, 2000);
+//!======================================================
+console.log(1);
+setTimeout(() => {
+  console.log(2);
+}, 3000);
+setTimeout(() => {
+  console.log(3);
+}, 1000);
+
+console.log(4);
+
+//!======================================================
 /*
  * Очищення таймаута за допомогою clearTimeout(timeoutId)
  */
-const logger = (time) => {
-  console.log(`Лог через ${time} мс, оскільки не скасували таймаут`);
-};
 
 /**
  * Можливість передати параметри для колбеку
  */
-const id = setTimeout((name, country) => {
-  console.log(`Hello, my name is ${name}, I'm from ${country}`);
-}, 1000);

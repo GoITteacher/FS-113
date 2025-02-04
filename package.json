@@ -23,6 +23,7 @@
     "vite": "^4.0.5"
   },
   "dependencies": {
+    "basiclightbox": "^5.0.4",
     "vite-plugin-full-reload": "^1.0.5",
     "vite-plugin-html-inject": "^1.0.1"
   },
