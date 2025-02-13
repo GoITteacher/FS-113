@@ -108,7 +108,7 @@ getUsers().then(users => {
 function userTemplate({ id, name, img, email, phone }) {
   return `<li class="card user-item" data-id="${id}">
   <img
-    src="https://source.unsplash.com/720x1280/?random=${id}&girl,portret,celebrity"
+    src="https://picsum.photos/id/${id}/200/300"
     alt="#"
     class="user-avatar"
   />

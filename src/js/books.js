@@ -1,4 +1,11 @@
-import { BooksAPI } from './modules/booksAPI';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import {
+  createBook,
+  getAllBooks,
+  resetBook,
+  updateBook,
+} from './modules/booksAPI';
 
 const refs = {
   createFormElem: document.querySelector('.js-create-form'),
@@ -7,125 +14,133 @@ const refs = {
   deleteFormElem: document.querySelector('.js-delete-form'),
   bookListElem: document.querySelector('.js-article-list'),
 };
-const booksAPI = new BooksAPI();
 
-// ===========================================
+//!======================================================
 
-refs.createFormElem.addEventListener('submit', onCreateFormSubmit);
-refs.updateFormElem.addEventListener('submit', onUpdateFormSubmit);
-refs.resetFormElem.addEventListener('submit', onResetFormSubmit);
-refs.deleteFormElem.addEventListener('submit', onDeleteFormSubmit);
+refs.createFormElem.addEventListener('submit', handleCreateBook);
+refs.updateFormElem.addEventListener('submit', handleUpdateBook);
+refs.resetFormElem.addEventListener('submit', handleResetBook);
+refs.deleteFormElem.addEventListener('submit', handleDeleteBook);
 
-// ===========================================
+//!======================================================
 
-booksAPI
-  .getBooks()
-  .then(data => {
-    renderBooks(data.reverse());
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-// ===========================================
-
-function templateBook({ id, title, desc, author, img, price, rating }) {
-  return `
-<li class="book-item card" data-id="${id}">
-  <img
-    class="book-img"
-    src="${img}"
-    alt=""
-  />
-
-  <h5 class="book-title">${title}</h5>
-  <h6>Author: ${author}</h6>
-  <p class="book-desc">${desc}</p>
-
-  <div class="book-info">
-    <span>Price: ${price}</span>
-    <span>Rating: ${rating}</span>
-  </div>
-</li>`;
-}
-
-function templateBooks(books) {
-  return books.map(templateBook).join('');
-}
-
-function renderBooks(books) {
-  const markup = templateBooks(books);
-  refs.bookListElem.innerHTML = markup;
-}
-
-// ===========================================
-
-function onCreateFormSubmit(e) {
+function handleCreateBook(e) {
   e.preventDefault();
+  const formData = new FormData(e.target);
 
-  const book = {
-    title: e.target.elements.bookTitle.value,
-    author: e.target.elements.bookAuthor.value,
-    desc: e.target.elements.bookDesc.value,
+  const data = {
+    rating: Math.round(Math.random() * 10),
+    price: Math.round(Math.random() * 1000),
   };
 
-  booksAPI.createBook(book).then(newBook => {
-    const markup = templateBook(newBook);
+  for (const [key, value] of formData.entries()) {
+    const newKey = key.slice(4).toLowerCase();
+    data[newKey] = value;
+  }
+
+  createBook(data).then(newBook => {
+    const markup = bookTemplate(newBook);
     refs.bookListElem.insertAdjacentHTML('afterbegin', markup);
   });
 
   e.target.reset();
 }
 
-function onResetFormSubmit(e) {
+function handleUpdateBook(e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
-  const book = {};
-
-  formData.forEach((value, key) => {
-    key = key.slice(4).toLowerCase();
-    book[key] = value;
-  });
-
-  booksAPI.resetBook(book.id, book).then(newBook => {
-    const oldBookCard = document.querySelector(`[data-id="${book.id}"]`);
-    const markup = templateBook(newBook);
-    oldBookCard.insertAdjacentHTML('afterend', markup);
-    oldBookCard.remove();
-  });
-
-  e.target.reset();
-}
-
-function onUpdateFormSubmit(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-  const book = {};
-
-  formData.forEach((value, key) => {
-    key = key.slice(4).toLowerCase();
-    if (value) book[key] = value;
-  });
-
-  booksAPI.updateBook(book.id, book).then(newBook => {
-    const oldBookCard = document.querySelector(`[data-id="${book.id}"]`);
-    const markup = templateBook(newBook);
-    oldBookCard.insertAdjacentHTML('afterend', markup);
-    oldBookCard.remove();
-  });
-
-  e.target.reset();
-}
-
-function onDeleteFormSubmit(e) {
-  e.preventDefault();
   const id = e.target.elements.bookId.value;
-  booksAPI.deleteBook(id).then(() => {
-    const oldBookCard = document.querySelector(`[data-id="${id}"]`);
-    oldBookCard.remove();
-  });
+  const data = {};
+
+  for (const [key, value] of formData.entries()) {
+    if (!value.trim()) continue;
+
+    const newKey = key.slice(4).toLowerCase();
+    data[newKey] = value;
+  }
+
+  updateBook(id, data)
+    .then(newBook => {
+      const markup = bookTemplate(newBook);
+      const oldBook = document.querySelector(`[data-id="${id}"]`);
+
+      oldBook.insertAdjacentHTML('beforebegin', markup);
+
+      oldBook.remove();
+    })
+    .catch(err => {
+      iziToast.error({
+        title: 'Sorry',
+        message: err,
+      });
+    });
+
+  e.target.reset();
 }
 
-// =========================
+function handleResetBook(e) {
+  e.preventDefault();
+
+  const id = e.target.elements.bookId.value;
+  const data = {
+    title: e.target.elements.bookTitle.value,
+    author: e.target.elements.bookAuthor.value,
+    desc: e.target.elements.bookDesc.value,
+    rating: Math.round(Math.random() * 10),
+    price: Math.round(Math.random() * 1000),
+  };
+
+  resetBook(id, data)
+    .then(newBook => {
+      const markup = bookTemplate(newBook);
+      const oldBook = document.querySelector(`[data-id="${id}"]`);
+
+      oldBook.insertAdjacentHTML('beforebegin', markup);
+
+      oldBook.remove();
+    })
+    .catch(err => {
+      iziToast.error({
+        title: 'Sorry',
+        message: err,
+      });
+    });
+
+  e.target.reset();
+}
+function handleDeleteBook(e) {
+  e.preventDefault();
+
+  e.target.reset();
+}
+
+//!======================================================
+
+getAllBooks().then(data => {
+  const markup = booksTemplate(data);
+  refs.bookListElem.innerHTML = markup;
+});
+
+function bookTemplate(book) {
+  const { id, title, author, desc, price, rating } = book;
+  const radnomId = Math.round(Math.random() * 100);
+  return `<li class="book-item card" data-id="${id}">
+        <img
+          class="book-img"
+          src="https://picsum.photos/id/${radnomId}/720/1280"
+          alt=""
+        />
+        <h5 class="book-title">${id} - ${title}</h5>
+        <h6>Author: ${author}</h6>
+        <p class="book-desc">${desc}</p>
+        <div class="book-info">
+          <span>Price: ${price}</span>
+          <span>Rating: ${rating}</span>
+        </div>
+      </li>`;
+}
+
+function booksTemplate(arr) {
+  return arr.map(bookTemplate).join('');
+}
