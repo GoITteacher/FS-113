@@ -176,14 +176,14 @@ async function handleDeleteBook(e) {
 // Promise.race(arr)
 // Promise.any(arr) ->
 
-Promise.then(() => {
-  console.log(1);
-}).then(() => {
-  console.log(2);
-});
+// Promise.then(() => {
+//   console.log(1);
+// }).then(() => {
+//   console.log(2);
+// });
 
-Promise.then(() => {
-  console.log(1_1);
-}).then(() => {
-  console.log(2_2);
-});
+// Promise.then(() => {
+//   console.log(1_1);
+// }).then(() => {
+//   console.log(2_2);
+// });
