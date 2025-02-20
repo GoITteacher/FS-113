@@ -1,8 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
-import { fetchArticles } from './modules/newsAPI.js';
 import { articlesTemplate } from './templates/render-functions.js';
+import { fetchArticles } from './modules/newsAPI.js';
 
 const refs = {
   formElem: document.querySelector('.js-search-form'),
@@ -11,95 +10,94 @@ const refs = {
   loadElem: document.querySelector('.js-loader'),
 };
 
-// ======================================
-let query;
-let page;
-let maxPage;
+const params = {
+  query: null,
+  page: null,
+  total: null,
+  perPage: 20,
+};
 
-refs.formElem.addEventListener('submit', onFormSubmit);
-refs.btnLoadMore.addEventListener('click', onLoadMoreClick);
+//!======================================================
 
-// ======================================
-
-async function onFormSubmit(e) {
+refs.formElem.addEventListener('submit', async e => {
   e.preventDefault();
-  query = e.target.elements.query.value.trim();
-  page = 1;
 
-  if (!query) {
-    showError('Empty field');
-    return;
-  }
+  showSpinner();
 
-  showLoader();
-
+  params.query = e.target.elements.query.value;
+  params.page = 1;
   try {
-    const data = await fetchArticles(query, page);
-    if (data.totalResults === 0) {
-      showError('Sorry!');
-    }
-    maxPage = Math.ceil(data.totalResults / 15);
+    const result = await fetchArticles(
+      params.query,
+      params.page,
+      params.perPage,
+    );
+    const markup = articlesTemplate(result.articles);
+    refs.articleListElem.innerHTML = markup;
+    params.total = result.totalResults;
+  } catch {
     refs.articleListElem.innerHTML = '';
-    renderArticles(data.articles);
-  } catch (err) {
-    console.log(err);
-    showError(err);
+    iziToast.error('Error');
   }
 
-  hideLoader();
-  checkBtnVisibleStatus();
-  e.target.reset();
-}
+  checkBtnStatus();
+  hideSpinner();
+});
 
-async function onLoadMoreClick() {
-  page += 1;
-  showLoader();
-  const data = await fetchArticles(query, page);
-  renderArticles(data.articles);
-  hideLoader();
-  checkBtnVisibleStatus();
+//!======================================================
 
-  const height =
-    refs.articleListElem.firstElementChild.getBoundingClientRect().height;
-
-  scrollBy({
-    behavior: 'smooth',
-    top: 10,
-  });
-}
-
-// ======================================
-function renderArticles(articles) {
-  const markup = articlesTemplate(articles);
+refs.btnLoadMore.addEventListener('click', async () => {
+  params.page += 1;
+  showSpinner();
+  checkBtnStatus();
+  const result = await fetchArticles(params.query, params.page, params.perPage);
+  const markup = articlesTemplate(result.articles);
   refs.articleListElem.insertAdjacentHTML('beforeend', markup);
+  hideSpinner();
+
+  scrollPage();
+});
+
+//!======================================================
+
+function showLoadMoreBtn() {
+  refs.btnLoadMore.disabled = false;
+  // refs.btnLoadMore.classList.remove('hidden');
 }
 
-function showLoadBtn() {
-  refs.btnLoadMore.classList.remove('hidden');
-}
-function hideLoadBtn() {
-  refs.btnLoadMore.classList.add('hidden');
+function hideLoadMoreBtn() {
+  refs.btnLoadMore.disabled = true;
+  // refs.btnLoadMore.classList.add('hidden');
 }
 
-function showLoader() {
+function checkBtnStatus() {
+  const perPage = 20;
+  const maxPage = Math.ceil(params.total / perPage);
+
+  if (params.page >= maxPage) {
+    hideLoadMoreBtn();
+    iziToast.info('This is last page');
+  } else {
+    showLoadMoreBtn();
+  }
+}
+
+//!======================================================
+function showSpinner() {
   refs.loadElem.classList.remove('hidden');
 }
-function hideLoader() {
+
+function hideSpinner() {
   refs.loadElem.classList.add('hidden');
 }
 
-function showError(msg) {
-  iziToast.error({
-    title: 'Error',
-    message: msg,
+//!======================================================
+
+function scrollPage() {
+  const info = refs.articleListElem.firstElementChild.getBoundingClientRect();
+  const height = info.height;
+  scrollBy({
+    behavior: 'smooth',
+    top: height * 2,
   });
 }
-
-function checkBtnVisibleStatus() {
-  if (page >= maxPage) {
-    hideLoadBtn();
-  } else {
-    showLoadBtn();
-  }
-}
-// ========================================

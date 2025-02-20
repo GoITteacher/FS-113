@@ -1,23 +1,18 @@
 import axios from 'axios';
 
-export async function fetchArticles(query, currentPage) {
-  const API_KEY = 'c8747511a2c34730a83caaff4f3693e7';
-  const BASE_URL = 'https://free-news.p.rapidapi.com/v1';
-  const END_POINT = '/search';
-  const url = `${BASE_URL}${END_POINT}`;
+const API_KEY = 'c8747511a2c34730a83caaff4f3693e7';
 
-  const headers = {
-    'x-rapidapi-key': '9b3ff61931msh1b42d77d34e33dap1c29cajsn3d3169e0e2f4',
-    'x-rapidapi-host': 'free-news.p.rapidapi.com',
-  };
+export async function fetchArticles(query, page, perPage) {
+  const BASE_URL = 'https://newsapi.org/v2';
+  const END_POINT = '/everything';
 
   const params = {
-    lang: 'en',
+    apiKey: API_KEY,
     q: query,
-    page_size: 15,
-    page: currentPage,
+    pageSize: perPage,
+    page: page,
   };
 
-  const res = await axios.get(url, { params, headers });
+  const res = await axios.get(BASE_URL + END_POINT, { params });
   return res.data;
 }

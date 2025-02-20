@@ -42,6 +42,7 @@ img {
   padding: 20px;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
 }
 
 .news-list::-webkit-scrollbar {

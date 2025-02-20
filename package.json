@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build --base=/test/",
     "preview": "vite preview",
     "push": "git add .; git commit -m 'update'; git push;"
